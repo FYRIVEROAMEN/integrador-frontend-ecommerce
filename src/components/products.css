@@ -1,0 +1,23 @@
+.container-productos {
+    /* padding: 2rem 5%; */
+    /* min-height: 80vh; */
+    /* background-color: #000; */
+}
+
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+    padding-top: 2rem;
+
+}
+
+.container-productos h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+  margin-bottom: 3rem;
+}

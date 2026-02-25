@@ -1,0 +1,64 @@
+/* FOOTEER ESTILOS ARRANCA ACA */
+.pie-pagina {
+    width: 100%;
+    background-color:#000000e5 ;
+    margin-top: auto;
+}
+.img:hover{
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px rgb(26, 5, 223, 0.8));
+    transition: all 0.3s ease;
+
+}
+.pie-pagina .grupo-1 {
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 50px;
+    padding: 1.3rem;
+}
+.pie-pagina .grupo-1 .box .img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;  }
+
+    .pie-pagina .grupo-1 .box .img img {
+        width: 10rem;
+    border-radius: 50%; 
+    color: aliceblue;
+     }
+
+
+
+    .pie-pagina .grupo-1 .box h2 {
+        color: #fff;
+        margin-bottom: 2rem;
+        font-size: 20px;
+    }
+    .pie-pagina .grupo-1 .box p {
+        color: #fff;
+        margin-bottom: 1rem;
+    }
+    .pie-pagina .grupo-1 .red-social a {
+        display: inline-block;
+        text-decoration: none;
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        color: #fff;
+        margin-right: 10px;
+        background-color: #0d2033 ;
+        text-align: center; }
+
+@media screen and (max-width:750px) {
+    .pie-pagina .grupo-1 {
+        width: 80%;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 3rem;
+        padding: 35px 0px;
+
+    }
+}

@@ -1,0 +1,62 @@
+  /* formulario */
+.register{ 
+    max-width:760px;
+    margin:2rem auto;
+    padding:1rem; }
+
+.register h1{
+   margin-bottom:1rem; 
+   color:#fff; 
+  }
+
+.register-form{
+  background:#0a0a0a; 
+  border:1px solid #1b1b1b; 
+  border-radius:.75rem;
+  padding:1.25rem; 
+  box-shadow:0 8px 24px rgba(0,0,0,.35);
+}
+
+.field{
+   display:flex; 
+   flex-direction:column; 
+   gap:.35rem; 
+   margin-bottom:.9rem; }
+
+label{ 
+  color:#eaeaea; 
+  font-weight:600; 
+}
+
+input, select{
+  background:#121212; color:#eaeaea;
+  border:1px solid #2a2a2a; border-radius:.5rem;
+  padding:.65rem .8rem; outline:none;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+input::placeholder{ 
+  color:#7a7a7a; 
+}
+
+input:focus, select:focus{ 
+  border-color:#0b6bcd; 
+  box-shadow:0 0 0 3px rgba(11,107,205,.25);
+ }
+
+.help{ color:#a8b3c7;
+   font-size:.85rem; 
+  }
+
+
+.row{ 
+  display:grid; 
+  gap:1rem; }
+
+@media (min-width:750px){ 
+  .row{ grid-template-columns:repeat(2,1fr); } 
+}
+
+
+/* seudoclases */
+input:invalid, select:invalid{ border-color:#e06b6b; }
+input:valid, select:valid{ border-color:#2b6f2e; }

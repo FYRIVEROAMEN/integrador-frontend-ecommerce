@@ -1,0 +1,79 @@
+/* Contenedor principal para poner uno al lado del otro */
+.admin-layout {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+
+/* El formulario de la izquierda */
+.form-container {
+  flex: 1;
+  background: #0a0a0a;
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid #222;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  max-width: 350px;
+}
+
+.admin-form .field {
+  margin-bottom: 1.2rem;
+}
+
+.admin-form input, .admin-form textarea {
+  width: 100%;
+  padding: 10px;
+  background: #111;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+/* La tabla de la derecha (tu estilo original) */
+.products-table {
+  flex: 2;
+  background: #0a0a0a;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 1px solid #222;
+}
+
+.cb-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cb-table th {
+  background: #0b6bcd;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+.cb-table td {
+  padding: 12px;
+  border-bottom: 1px solid #222;
+}
+
+.precio-tabla {
+  color: #0b6bcd;
+  font-weight: bold;
+}
+
+/* Responsive: si la pantalla es chica, se ponen uno abajo del otro */
+@media (max-width: 900px) {
+  .admin-layout {
+    flex-direction: column;
+    align-items: center
+  }
+  .form-container {
+    max-width: 100%;
+    width: 100%;
+  }
+    .products-table {
+        width: 100%;
+        overflow-x: auto;
+    }
+}

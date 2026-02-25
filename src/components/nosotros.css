@@ -1,0 +1,112 @@
+/* Sobre nosotros  */
+.about-intro h2{
+  font-size: clamp(1.6rem, 2vw + 1rem, 2.2rem);
+  margin: 0 0 .5rem;
+  color: #fff;
+}
+
+.about-intro h2:hover {
+    filter: drop-shadow(0 0 20px rgb(26, 5, 223, 0.8));
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+}
+.about-intro p{ color:#dcdcdc; max-width: 70ch; }
+
+.about-hero{
+  margin: 1.25rem 0 2rem;
+  border-radius: .75rem; overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0,0,0,.35);
+}
+.about-hero img{ 
+  width:100%; 
+  height:auto; 
+  display:block; }
+
+.about-subtitle{
+  margin: .5rem 0 1rem;
+  font-size: 1.25rem;
+  color:#fff;
+}
+
+/* descripcion mia jaja */
+.team{
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 750px){
+  .team{ grid-template-columns: repeat(2, 1fr); }
+}
+
+.member{
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 1rem;
+  background:#0a0a0a;
+  border:1px solid #1b1b1b;
+  border-radius:.75rem;
+  padding: 1rem;
+  box-shadow: 0 8px 22px rgba(0,0,0,.35);
+  width: 203%; 
+  margin: 0 auto;
+}
+
+.hero-media iframe {
+
+    width: 100%;
+    height: 500px;
+    border: none;
+    border-radius: .5rem;
+    
+}
+@media (max-width: 750px){
+  .member{ 
+    grid-template-columns: 1fr; 
+    text-align: center; 
+     width: 100%; 
+  }
+}
+
+.member-media img{
+  width:100%;
+  height:100%;
+  max-width:110px;
+  object-fit: cover; 
+  border-radius: .7rem;
+  filter: drop-shadow(0 0 10px rgba(0,174,255,.25));
+}
+
+.member-name{ 
+  margin:.1rem 0;
+  color:#fff; 
+  font-weight:700; }
+
+.member-role{ 
+  margin:0;
+  color:#7cc0ff; 
+  font-weight:600; }
+
+.member-bio{ 
+  color:#cfcfcf; 
+  margin:.5rem 0 0; }
+
+.member-social{
+  margin-top:.6rem; 
+  display:flex; 
+  gap:.6rem;
+}
+.member-social a{
+  width:36px; 
+  height:36px; 
+  display:grid; 
+  place-items:center;
+  color:#7cc0ff; 
+  border:1px solid #1f3957; 
+  border-radius:.5rem;
+  transition: transform .15s ease, filter .15s ease, background .15s ease;
+}
+.member-social a:hover{
+  transform: translateY(-2px);
+  background:#0b2743;
+  filter: brightness(1.15);
+}

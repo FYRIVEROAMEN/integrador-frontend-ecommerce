@@ -1,0 +1,156 @@
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;}
+
+    body{ margin:0;
+     min-height: 100vh;
+     display: flex;
+     flex-direction: column;
+    background:#111; color:#dfdfdf;}
+     
+ 
+header {
+    box-shadow: 0 0px 3px ;
+    position: sticky;
+    top:0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.3rem;
+    background-color: #000000;}
+
+  
+  
+  
+  .nav {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;}
+
+.logo {
+    max-width: 3em;
+    border-radius: 50%;}
+
+.logo:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px rgb(26, 5, 223, 0.8));
+    transition: all 0.3s ease;}
+
+.botoncerrar {
+    display: none;
+    width: 44px;
+    height: 44px;
+    font-size: 1.25rem;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;}
+
+.nav-list {
+    list-style-type: none;
+    display: flex;
+    gap: 1rem;}
+
+.nav-list li a {
+    display: block;
+    padding: 4px 4px;
+    text-decoration: none;
+    color: #fff;}
+
+.nav-list li a:hover {
+     transform: scale(1.1);
+     color: #7cc0ff;
+    filter: drop-shadow(0 0 10px  rgba(26, 5, 223, 0.8));
+    transition: all 0.3s ease;}
+
+.usuarioseccion {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-left: auto;}
+
+.usuarioseccion button {
+    background: transparent;
+    border: 0;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;}
+
+    .carrito:hover {
+     transform: scale(1.1);
+     color: #7cc0ff;
+    filter: drop-shadow(0 0 10px  rgba(26, 5, 223, 0.8));
+    transition: all 0.3s ease;}
+
+    .botonusuario:hover {
+     transform: scale(1.1);
+     color: #7cc0ff;
+    filter: drop-shadow(0 0 10px  rgba(26, 5, 223, 0.8));
+    transition: all 0.3s ease;}
+    
+.abrir-menu {
+  display: none;
+  font-size: 1.75rem;
+  width: 48px;
+  height: 48px;
+  line-height: 1;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;}
+  
+/* ACA EMPIEZAN LOS MEDIA PARA MOBILE */
+
+@media screen and (max-width: 750px)  {
+    .abrir-menu,
+    .botoncerrar { 
+        display: block;
+    }
+    .abrir-menu, .cerrar-menu:hover {transition: all 0.3s ease;}
+
+    .botoncerrar{
+        display: block;
+    }
+
+    .nav {
+        opacity: 0;
+        visibility: hidden;
+        
+    }
+ 
+     .nav {
+        display: flex;
+        width: 50%;
+        flex-direction: column;
+        align-items: end;
+        gap: 1rem;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #000;
+        padding: 1.5rem;
+        box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+     }
+
+     .nav.visible {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+        transition: transform .25s ease, opacity .25s ease;
+     }
+
+     .nav-list{
+        flex-direction: column;
+        align-items: flex-end;
+     }
+     .nav-list li a {
+        color: #fff9f9;
+        align-items: center;
+     }
+}

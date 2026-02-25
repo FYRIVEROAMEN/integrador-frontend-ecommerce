@@ -1,0 +1,48 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2rem 5%;
+  background-color: #000; /* O el color oscuro de tu sitio */
+  color: white;
+  min-height: 450px;
+  gap: 20px;
+}
+
+.hero-texto {
+  flex: 1;
+  max-width: 500px;
+  text-align: left;
+}
+
+.hero-texto h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.hero-media {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-media img {
+  width: 100%;
+  max-width: 550px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Responsive para que en el celu se ponga uno abajo del otro */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+
+  .hero-texto {
+    margin-bottom: 2rem;
+  }
+}

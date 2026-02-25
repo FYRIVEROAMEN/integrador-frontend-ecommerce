@@ -1,0 +1,14 @@
+.caracteristicas{
+  margin: 3rem 0 2rem;
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 750px){
+  .caracteristicas{ grid-template-columns: repeat(3,1fr); }
+}
+.feat{
+  background:#0a0a0a; border:1px solid #1b1b1b; border-radius:.75rem; padding:1rem;
+  text-align:center; color:#eaeaea;
+}
+.feat i{ font-size:2rem; color:#7cc0ff; }
+.feat h3{ margin:.5rem 0; }
