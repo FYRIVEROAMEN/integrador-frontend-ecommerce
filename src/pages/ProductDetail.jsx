@@ -24,19 +24,18 @@ useEffect (()=> {
 }, [id])  // el useEffect se va a ejecutar cada vez que el id cambie (es decir, cada vez que entremos a un producto diferente, si el id cambia el efecto se vuelve a disparar y obtiene el nuevo producto)
 
 if (!producto) { 
- // mientras el producto no se haya cargado, mostramos un mensaje de carga
- return <h2 style={{ color: "white", textAlign: "center", marginTop: "50px" }}>Buscando el celular... 🔍</h2>;
+
+ return <h2 style={{ color: "white", textAlign: "center", marginTop: "50px" }}>Buscando el Productos... </h2>;
 }
 
 return (
         <main className="product-page">
             <section className="product-detail">
-                {/* Galería de imagen */}
                 <div className="pd-gallery">
                     <img src={producto.imagen} alt={producto.nombre} />
                 </div>
 
-                {/* Info del producto */}
+                
                 <div className="pd-info">
                     <h1>{producto.nombre}</h1>
                     <p className="pd-price">${producto.precio}</p>
@@ -59,7 +58,7 @@ return (
                 </div>
             </section>
 
-            {/* Sección de Descripción extendida */}
+           
             <section className="pd-description">
                 <h2>Descripción</h2>
                 <p>{producto.descripcion}</p>

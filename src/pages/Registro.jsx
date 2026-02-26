@@ -75,7 +75,7 @@ const Registro = () => {
       <h1>Registro</h1>
 
       <form className="register-form" onSubmit={handleSubmit} noValidate>
-        {/* Nombre completo */}
+       
         <div className="field">
           <label htmlFor="fullname">Nombre completo *</label>
           <input 
@@ -90,7 +90,7 @@ const Registro = () => {
           <small className="help">Entre 2 y 60 caracteres.</small>
         </div>
 
-        {/* Correo */}
+        
         <div className="field">
           <label htmlFor="email">Correo electrónico *</label>
           <input 
@@ -105,7 +105,7 @@ const Registro = () => {
         </div>
 
         <div className="row">
-          {/* Contraseña */}
+          
           <div className="field">
             <label htmlFor="password">Contraseña *</label>
             <input 
@@ -119,7 +119,7 @@ const Registro = () => {
             />
           </div>
 
-          {/* Repetir contraseña */}
+          
           <div className="field">
             <label htmlFor="password2">Repetir contraseña *</label>
             <input 
@@ -134,7 +134,7 @@ const Registro = () => {
         </div>
 
         <div className="row">
-          {/* Fecha de nacimiento */}
+          
           <div className="field">
             <label htmlFor="birthdate">Fecha de nacimiento *</label>
             <input 
@@ -148,7 +148,7 @@ const Registro = () => {
             />
           </div>
 
-          {/* Provincia */}
+          
           <div className="locacion">
             <label htmlFor="province">Provincia / País *</label>
             <select 
@@ -163,7 +163,16 @@ const Registro = () => {
               <option value="CABA">CABA</option>
               <option value="Córdoba">Córdoba</option>
               <option value="Santa Fe">Santa Fe</option>
-              {/* Agregá el resto de las opciones igual */}
+              <option value="Mendoza">Mendoza</option>
+              <option value="Tucumán">Tucumán</option>
+              <option value="Entre Ríos">Entre Ríos</option>
+              <option value="Salta">Salta</option>
+              <option value="Misiones">Misiones</option>
+              <option value="Chaco">Chaco</option>
+              <option value="Corrientes">Corrientes</option>
+              <option value="Santiago del Estero">Santiago del Estero</option>
+              <option value="Formosa">Formosa</option>
+              <option value="Jujuy">Jujuy</option>
             </select>
           </div>
         </div>

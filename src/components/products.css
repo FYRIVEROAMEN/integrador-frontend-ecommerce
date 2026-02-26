@@ -21,3 +21,26 @@
   display: inline-block;
   margin-bottom: 3rem;
 }
+
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.btn-filter {
+    background: #1a1a1a;
+    color: white;
+    border: 1px solid #333;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-filter.active, .btn-filter:hover {
+    background: #007bff;
+    border-color: #007bff;
+}

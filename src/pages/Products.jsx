@@ -8,6 +8,8 @@ import Features from "../components/Features";
 const Products = () => {
     const [productos, setProductos ] = useState ([]);
 
+    const [filtro, setFiltro] = useState("Todas");
+
 
     useEffect (()=>{
         const obtenerProductos = async () => {
@@ -23,20 +25,40 @@ const Products = () => {
             obtenerProductos()
     },[]);
 
+    const categorias = ["Todas", ...new Set(productos.map(p => p.categoria))];
+
+    const productosFiltrados = filtro === "Todas" 
+        ? productos 
+        : productos.filter(p => p.categoria === filtro);
+
+
+
     return (
         <main className="container-productos">
-      <h2 className="text-center text-white my-4">Nuestro Catálogo</h2>
-      <div className="grid-productos">
-        {productos.map((item) => (
-          <ProductCard key={item.id} producto={item} />
-        ))}
-      </div>
+            <h2 className="text-center text-white my-4">Nuestro Catálogo</h2>
 
-      <Features></Features>
-    </main>
-    
+            {/* 🍌 BOTONES DE CATEGORÍAS */}
+            <div className="filter-container">
+                {categorias.map(cat => (
+                    <button 
+                        key={cat} 
+                        className={`btn-filter ${filtro === cat ? 'active' : ''}`}
+                        onClick={() => setFiltro(cat)}
+                    >
+                        {cat}
+                    </button>
+                ))}
+            </div>
 
-    )
+            <div className="grid-productos">
+                {productosFiltrados.map((item) => (
+                    <ProductCard key={item.id} producto={item} />
+                ))}
+            </div>
+
+            <Features />
+        </main>
+    );
 
 
 }

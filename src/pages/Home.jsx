@@ -28,7 +28,6 @@ return (
     <section className="productos" id="productos">
       <h2>Nuestros Productos</h2>
       <div className="grid-productos">
-        {/* Si productos tiene algo, lo mapeamos */}
         {productos.length > 0 ? (
           productos.map((item) => (
             <ProductCard key={item.id} producto={item} />

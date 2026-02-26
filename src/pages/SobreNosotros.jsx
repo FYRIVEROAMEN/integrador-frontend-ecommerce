@@ -32,7 +32,7 @@ const SobreNosotros = () => {
         <div className="team">
           <div className="member">
             <div className="member-media">
-              <img src="/imagenes/yamil-perfil.png" alt="Yamil Amen" />
+              <img src="public/facuimagen.jpg" alt="Yamil Amen" />
             </div>
             <div className="member-info">
               <h3 className="member-name">Yamil Amen</h3>
