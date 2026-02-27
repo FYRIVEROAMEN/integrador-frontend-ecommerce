@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";   
 import axios from "axios";  
 import ProductCard from "../components/ProductCard";
-import Hero from "../components/hero";
+import Hero from "../components/Hero";
 import "../App.css";
 import Features from "../components/Features";
 
