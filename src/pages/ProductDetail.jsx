@@ -39,7 +39,7 @@ return (
                 <div className="pd-info">
                     <h1>{producto.nombre}</h1>
                     <p className="pd-price">${producto.precio}</p>
-                    <p className="pd-desc">{producto.descripcion_corta || "Cargando descripción..."}</p>
+                    <p className="pd-desc">{producto.descripcion|| "Cargando descripción..."}</p>
 
                     <div className="pd-quantity">
                         <label htmlFor="cantidad">Cantidad: </label>
