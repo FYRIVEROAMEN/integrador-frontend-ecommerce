@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // Cambiamos faShieldCheck por faShieldHalved que es el que suele venir gratis
 import { faTruck, faShieldHalved, faCreditCard } from '@fortawesome/free-solid-svg-icons';
-import "./features.css"
+import "../styles/features.css";
 const Features = () => {
   return (
     <section className="caracteristicas">

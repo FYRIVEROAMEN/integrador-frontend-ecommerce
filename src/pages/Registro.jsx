@@ -1,5 +1,5 @@
 import { useState} from "react";
-import "../components/Registro.css";
+import "../styles/registro.css";
 import Swal from "sweetalert2";    
 
 

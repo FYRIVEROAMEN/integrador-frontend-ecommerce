@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import "../components/adminProducts.css"
+import "../styles/adminProducts.css"
 
 const AdminProducts = () => {
     const [productos, setProductos] = useState([]);

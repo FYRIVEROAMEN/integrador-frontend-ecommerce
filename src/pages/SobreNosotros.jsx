@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faFacebook, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import "../components/nosotros.css"; 
+import "../styles/nosotros.css"; 
 
 const SobreNosotros = () => {
   return (

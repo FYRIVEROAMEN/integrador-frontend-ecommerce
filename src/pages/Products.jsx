@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
-import "../components/products.css"
+import "../styles/products.css";
 import { data } from "react-router-dom";
 import Features from "../components/Features";
 

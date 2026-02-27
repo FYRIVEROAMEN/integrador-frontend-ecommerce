@@ -2,7 +2,7 @@ import { useState  } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import './navbar.css';
+import  "../styles/navbar.css";
 
 import { List, X, PersonCircle, BoxSeamFill } from 'react-bootstrap-icons';
 
@@ -16,12 +16,12 @@ return (
     <header className="header-nav">
       <img className="logo" src="public/ChatGPT Image 25 sept 2025, 04_07_34 p.m..png" alt="logotipo" />
 
-      {/* Botón Hamburguesa */}
+      
       <button className="abrir-menu" onClick={toggleMenu}>
         <List size={30} color="white" />
       </button>
 
-      {/* Si isOpen es true, le ponemos la clase 'visible' */}
+      
       <nav className={`nav ${isOpen ? 'visible' : ''}`}>
         <button className="botoncerrar" onClick={toggleMenu}>
           <X size={30} color="white" />
