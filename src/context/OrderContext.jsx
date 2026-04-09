@@ -1,15 +1,12 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-
-
-export const OrderContext = createContext();
+// 1. IMPORTANTE: Importamos la caja desde el archivo que acabamos de crear
+import { OrderContext } from "./OrderContext";
 
 export const OrderProvider = ({ children }) => {
     const [orders, setOrders] = useState([]);
 
-    // [cite: 190-191] CALCULO "EN EL AIRE" (Derivado)
-    // No usamos useEffect ni setTotal. Calculamos el total directamente.
-    // Es más rápido, más limpio y ELIMINA EL ERROR ROJO.
+    // Cálculo del total "en el aire" [cite: 190-191]
     const total = orders.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
     const addItemToOrder = (product) => {
@@ -36,13 +33,13 @@ export const OrderProvider = ({ children }) => {
             };
             await axios.post("http://localhost:3000/api/orders", newOrder);
             
-            // Requerimiento: GET de todas y mostrar por consola [cite: 219]
+            // [cite: 219] Requerimiento: Mostrar órdenes por consola
             const res = await axios.get("http://localhost:3000/api/orders");
-            console.log("Órdenes actualizadas:", res.data);
+            console.log("Historial de órdenes:", res.data);
             
             setOrders([]); 
         } catch (error) {
-            console.error("Error:", error);
+            console.error("Error al crear la orden:", error);
         }
     };
 

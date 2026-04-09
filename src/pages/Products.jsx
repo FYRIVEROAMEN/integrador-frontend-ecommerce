@@ -16,7 +16,7 @@ const Products = () => {
             try {
                 const url = "https://6945e411ed253f51719c869d.mockapi.io/productos";
                 const respuesta = await axios.get(url);
-                console.log ("DATA DE LA API", respuesta,data)
+                //console.log ("DATA DE LA API", respuesta,data)
                 setProductos(respuesta.data);
             } catch (error) {
                 console.error("error al obtener productos", error)
