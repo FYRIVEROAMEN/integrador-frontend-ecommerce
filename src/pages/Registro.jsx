@@ -37,9 +37,9 @@ const Registro = () => {
         // 2. CONEXIÓN REAL AL BACKEND
         try {
             // Tu ruta de app.js
-            const url = "http://localhost:3000/api/users"; 
+            const url = "http://localhost:3000/api/auth/register"; 
             
-            // Enviamos los datos a la cocina (Node)
+            // 
             await axios.post(url, formData);
 
             Swal.fire({

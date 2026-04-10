@@ -1,14 +1,17 @@
 import { useState } from "react";
 import axios from "axios";
-// 1. IMPORTANTE: Importamos la caja desde el archivo que acabamos de crear
 import { OrderContext } from "./OrderContext";
 
 export const OrderProvider = ({ children }) => {
     const [orders, setOrders] = useState([]);
 
-    // Cálculo del total "en el aire" [cite: 190-191]
+    // Sumatoria total del precio
     const total = orders.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
+    //Cantidad total de ítems en la orden 
+    const countItems = orders.reduce((acc, item) => acc + item.quantity, 0);
+
+    // Agregar producto con control de quantity 
     const addItemToOrder = (product) => {
         const itemExist = orders.find((item) => item._id === product._id);
         if (itemExist) {
@@ -18,6 +21,11 @@ export const OrderProvider = ({ children }) => {
         } else {
             setOrders([...orders, { ...product, quantity: 1 }]);
         }
+    };
+
+    //Función para vaciar el carrito 
+    const clearCart = () => {
+        setOrders([]);
     };
 
     const createOrder = async (userId) => {
@@ -31,20 +39,31 @@ export const OrderProvider = ({ children }) => {
                     price: i.price 
                 }))
             };
+            
+            // Eorden al back
             await axios.post("http://localhost:3000/api/orders", newOrder);
             
-            // [cite: 219] Requerimiento: Mostrar órdenes por consola
+            // REQUERIMIENTO: Inmediatamente después, GET y consola 
             const res = await axios.get("http://localhost:3000/api/orders");
-            console.log("Historial de órdenes:", res.data);
+            console.log("--- HISTORIAL DE ÓRDENES (Requerimiento 48) ---");
+            console.log(res.data);
             
-            setOrders([]); 
+            clearCart(); 
+            
         } catch (error) {
             console.error("Error al crear la orden:", error);
         }
     };
 
     return (
-        <OrderContext.Provider value={{ orders, total, addItemToOrder, createOrder }}>
+        <OrderContext.Provider value={{ 
+            orders, 
+            total, 
+            countItems, 
+            addItemToOrder, 
+            createOrder, 
+            clearCart 
+        }}>
             {children}
         </OrderContext.Provider>
     );

@@ -13,13 +13,13 @@ const Login = () => {
         e.preventDefault();
         try {
             
-            const url = "http://localhost:3000/api/login"; 
+            const url = "http://localhost:3000/api/auth/login"; 
             const res = await axios.post(url, { email, password });
 
             // Guardamos la "pulsera" (datos + token) en el localStorage
             localStorage.setItem("user", JSON.stringify(res.data));
 
-            Swal.fire("¡Bienvenido!", `Hola, ${res.data.fullname}`, "success");
+            Swal.fire("¡Bienvenido!", `Hola, ${res.data.name}`, "success");
             
             // Redirección inteligente: si es admin, lo mandamos al panel
             if (res.data.role === 'admin') {
