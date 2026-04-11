@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // IMPORTANTE
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "../styles/registro.css";
@@ -13,8 +13,9 @@ const Registro = () => {
         birthdate: "",
         province: ""
     });
+    const [image, setImage] = useState(null);
 
-    const navigate = useNavigate(); // USAMOS EL GPS
+    const navigate = useNavigate();
     const hoy = new Date().toISOString().split("T")[0];
 
     const handleChange = (e) => {
@@ -22,10 +23,13 @@ const Registro = () => {
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleFileChange = (e) => {
+        setImage(e.target.files[0]);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // 1. VALIDACIONES (No las saques, son el escudo del mono)
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!regexEmail.test(formData.email)) {
             return Swal.fire({ icon: 'error', title: 'Email inválido', text: 'Poné uno real, King.' });
@@ -33,30 +37,39 @@ const Registro = () => {
         if (formData.password !== formData.password2) {
             return Swal.fire({ icon: 'error', title: 'Error', text: 'Las claves no coinciden.' });
         }
+        if (!image) {
+            return Swal.fire({ icon: 'error', title: 'Falta la foto', text: 'El PDF pide una imagen de perfil.' });
+        }
 
-        // 2. CONEXIÓN REAL AL BACKEND
         try {
-            // Tu ruta de app.js
+            const data = new FormData();
+            data.append("name", formData.name);
+            data.append("email", formData.email);
+            data.append("password", formData.password);
+            data.append("birthdate", formData.birthdate);
+            data.append("province", formData.province);
+            data.append("image", image);
+
             const url = "http://localhost:3000/api/auth/register"; 
             
-            // 
-            await axios.post(url, formData);
+            await axios.post(url, data, {
+                headers: { "Content-Type": "multipart/form-data" }
+            });
 
             Swal.fire({
                 icon: 'success',
-                title: '¡Cuenta creada de verdad!',
-                text: 'Tus datos ya están en MongoDB.',
+                title: '¡Cuenta creada!',
+                text: 'Tus datos y tu foto ya están en la base de datos.',
                 confirmButtonColor: '#0b6bcd'
             }).then(() => {
-                navigate("/login"); // TELETRANSPORTACIÓN AL LOGIN
+                navigate("/login");
             });
 
         } catch (error) {
-            console.error("Error al conectar con el Back:", error);
             Swal.fire({
                 icon: 'error',
-                title: 'La cocina explotó',
-                text: error.response?.data?.message || 'Fijate si prendiste el servidor de Node.',
+                title: 'Error en el servidor',
+                text: error.response?.data?.message || 'Hubo un problema al crear la cuenta.',
             });
         }
     };
@@ -65,7 +78,6 @@ const Registro = () => {
         <section className="register">
             <h1>Registro</h1>
             <form className="register-form" onSubmit={handleSubmit} noValidate>
-                {/* ... (Tus inputs que están perfectos) ... */}
                 <div className="field">
                     <label htmlFor="name">Nombre completo *</label>
                     <input id="name" name="name" type="text" value={formData.name} onChange={handleChange} required />
@@ -95,9 +107,34 @@ const Registro = () => {
                             <option value="" disabled>Seleccioná una opción…</option>
                             <option value="Buenos Aires">Buenos Aires</option>
                             <option value="CABA">CABA</option>
-                            {/* ... más opciones ... */}
+                            <option value="Catamarca">Catamarca</option>
+                            <option value="Chaco">Chaco</option>
+                            <option value="Chubut">Chubut</option>
+                            <option value="Córdoba">Córdoba</option>
+                            <option value="Corrientes">Corrientes</option>
+                            <option value="Entre Ríos">Entre Ríos</option>
+                            <option value="Formosa">Formosa</option>
+                            <option value="Jujuy">Jujuy</option>
+                            <option value="La Pampa">La Pampa</option>
+                            <option value="La Rioja">La Rioja</option>
+                            <option value="Mendoza">Mendoza</option>
+                            <option value="Misiones">Misiones</option>
+                            <option value="Neuquén">Neuquén</option>
+                            <option value="Río Negro">Río Negro</option>
+                            <option value="Salta">Salta</option>
+                            <option value="San Juan">San Juan</option>
+                            <option value="San Luis">San Luis</option>
+                            <option value="Santa Cruz">Santa Cruz</option>
+                            <option value="Santa Fe">Santa Fe</option>
+                            <option value="Santiago del Estero">Santiago del Estero</option>
+                            <option value="Tierra del Fuego">Tierra del Fuego</option>
+                            <option value="Tucumán">Tucumán</option>
                         </select>
                     </div>
+                </div>
+                <div className="field">
+                    <label htmlFor="image">Foto de perfil *</label>
+                    <input id="image" name="image" type="file" accept="image/*" onChange={handleFileChange} required />
                 </div>
                 <button className="btn btn-primary" type="submit">Crear cuenta</button>
             </form>

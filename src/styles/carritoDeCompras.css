@@ -1,0 +1,117 @@
+
+.container.my-5 {
+    background-color: #121212;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+}
+
+
+h2.text-center {
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.table-responsive {
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table.table-dark {
+    background-color: #1a1a1a;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 0;
+}
+
+.table.table-dark thead th {
+    background-color: #0b6bcd; /* Color institucional */
+    color: white;
+    border: none;
+    padding: 1.2rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.table.table-dark tbody td {
+    padding: 1rem 1.2rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #333;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #222;
+}
+
+
+.table-hover tbody tr:hover {
+    background-color: #2a2a2a !important;
+    transition: background-color 0.3s ease;
+}
+
+
+.table tfoot td {
+    padding: 1.5rem;
+    background-color: #151515;
+    font-size: 1.2rem;
+    border-top: 2px solid #0b6bcd;
+}
+
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.btn-primary {
+    background-color: #0b6bcd;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0855a5;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(11, 107, 205, 0.4);
+}
+
+.btn-outline-danger {
+    color: #ff4d4d;
+    border-color: #ff4d4d;
+}
+
+.btn-outline-danger:hover {
+    background-color: #ff4d4d;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Mensaje de Carrito Vacío */
+.text-center p {
+    font-size: 1.1rem;
+    color: #aaa;
+    margin-top: 2rem;
+}
+
+/* Responsive Ajustes */
+@media (max-width: 768px) {
+    .container.my-5 {
+        padding: 1rem;
+    }
+    
+    .table thead {
+        display: none; /* En móviles muy chicos podés ocultar el head si se rompe */
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}

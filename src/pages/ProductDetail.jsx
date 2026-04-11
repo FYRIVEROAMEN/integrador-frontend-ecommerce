@@ -1,67 +1,93 @@
-import {  useEffect, useState } from "react";    
-import {  useParams } from "react-router-dom";   
+import { useEffect, useState, useContext } from "react";    
+import { useParams, useNavigate } from "react-router-dom";   
 import axios from "axios";
-import "../styles/productDetail.css"
+import { OrderContext } from "../context/OrderContext.jsx"; 
+import Swal from "sweetalert2";
+import "../styles/productDetail.css";
 
 const ProductDetail = () => {
-
-const {id} = useParams();  // con esto puedo acceder al id que esta en la url (en este caso el id del producto)
-
-const [producto, setProducto] = useState(null);  // estado para guardar el producto que vamos a mostrar
-
-useEffect (()=> {
+    const { id } = useParams(); 
+    const navigate = useNavigate();
+    const [producto, setProducto] = useState(null); 
     
-    const obtenerProducto = async () => {
-        try {
-            const url = `https://6945e411ed253f51719c869d.mockapi.io/productos/${id}`;  // aca le paso el id a la url para obtener el producto especifico
-            const respuesta = await axios.get(url);
-            setProducto(respuesta.data);  // guardo el producto en el estado
-        } catch (error) {
-            console.error("Error al obtener el producto", error);
+    const [cantidad, setCantidad] = useState(1); 
+    
+    const { addItemToCart } = useContext(OrderContext);
+
+    useEffect(() => {
+        const obtenerProducto = async () => {
+            try {
+                const url = `http://localhost:3000/api/products/${id}`; 
+                const respuesta = await axios.get(url);
+                setProducto(respuesta.data); 
+            } catch (error) {
+                console.error("Error al obtener el producto", error);
+            }
         }
-    }
-    obtenerProducto();
-}, [id])  // el useEffect se va a ejecutar cada vez que el id cambie (es decir, cada vez que entremos a un producto diferente, si el id cambia el efecto se vuelve a disparar y obtiene el nuevo producto)
+        obtenerProducto();
+    }, [id]);
 
-if (!producto) { 
+    const handleAdd = () => {
+        
+        addItemToCart(producto, cantidad); 
+        Swal.fire({
+            icon: 'success',
+            title: 'Producto añadido',
+            text: `${producto.name} (${cantidad} unidades) se agregó al carrito.`,
+            showConfirmButton: false,
+            timer: 1500,
+            background: '#1a1a1a',
+            color: '#fff'
+        });
+    };
 
- return <h2 style={{ color: "white", textAlign: "center", marginTop: "50px" }}>Buscando el Productos... </h2>;
-}
+    const handleBuyNow = () => {
+        addItemToCart(producto, cantidad);
+        navigate("/carrito");
+    };
 
-return (
+    if (!producto) return <h2 className="text-white text-center">Cargando información del producto...</h2>;
+
+    return (
         <main className="product-page">
             <section className="product-detail">
                 <div className="pd-gallery">
-                    <img src={producto.imagen} alt={producto.nombre} />
+                    <img src={`http://localhost:3000${producto.image}`} alt={producto.name} />
                 </div>
-
-                
                 <div className="pd-info">
-                    <h1>{producto.nombre}</h1>
-                    <p className="pd-price">${producto.precio}</p>
-                    <p className="pd-desc">{producto.descripcion|| "Cargando descripción..."}</p>
+                    <h1>{producto.name}</h1>
+                    <p className="pd-price">${Number(producto.price).toLocaleString('es-AR')}</p>
+                    <p className="pd-desc">{producto.description || "Sin descripción disponible."}</p>
 
                     <div className="pd-quantity">
                         <label htmlFor="cantidad">Cantidad: </label>
-                        <input id="cantidad" type="number" min="1" defaultValue="1" />
+                     
+                        <input 
+                            id="cantidad" 
+                            type="number" 
+                            min="1" 
+                            value={cantidad} 
+                            onChange={(e) => setCantidad(e.target.value)} 
+                        />
                     </div>
 
                     <div className="pd-buttons">
-                        <button className="btn btn-primary">Añadir al carrito</button>
-                        <button className="btn btn-outline">Comprar ahora</button>
+                        <button className="btn btn-primary" onClick={handleAdd}>
+                            Añadir al carrito
+                        </button>
+                        <button className="btn btn-success" onClick={handleBuyNow}>
+                            Comprar ahora
+                        </button>
+                        <button className="btn btn-outline" onClick={() => navigate("/carrito")}>
+                            Ver carrito
+                        </button>
                     </div>
 
                     <div className="pd-coupon">
                         <h4>Cupón Descuento</h4>
-                        <p>Usá <strong>BOEDO10</strong> y obtené 10% OFF pagando en efectivo o transferencia.</p>
+                        <p>Usa el código <strong>BOEDO10</strong> para obtener un 10% de descuento.</p>
                     </div>
                 </div>
-            </section>
-
-           
-            <section className="pd-description">
-                <h2>Descripción</h2>
-                <p>{producto.descripcion}</p>
             </section>
         </main>
     );

@@ -16,7 +16,7 @@ const SobreNosotros = () => {
         <figure className="about-hero">
           <div className="hero-media">
             <video
-              src="/¡BUEN COMIENZO DE SEMANA! ¿Te imaginas arrancarla así ¡Con el celular que más querías! En celula.mp4" 
+              src="src/image/¡BUEN COMIENZO DE SEMANA! ¿Te imaginas arrancarla así ¡Con el celular que más querías! En celula.mp4" 
               width="400"
               height="480"
               allowFullScreen

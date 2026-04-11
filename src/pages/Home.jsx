@@ -7,44 +7,57 @@ import Features from "../components/Features";
 
 const Home = () => {
   const [productos, setProductos] = useState([]);
-  useEffect(() => {
-  const obtenerProductos = async () => {
-    try {
-      
-      const url = "https://6945e411ed253f51719c869d.mockapi.io/productos"; 
-      const respuesta = await axios.get(url);
-      setProductos(respuesta.data);
-    } catch (error) {
-      console.error("Error al obtener los productos", error);
-    }
-  };
-    obtenerProductos();
-},[])
+  const [cargando, setCargando] = useState(true);
 
- 
-return (
+  useEffect(() => {
+    const obtenerProductos = async () => {
+      try {
+      
+        const url = "http://localhost:3000/api/products"; 
+        const respuesta = await axios.get(url);
+        
+        
+        setProductos(respuesta.data);
+        setCargando(false);
+      } catch (error) {
+        console.error("Error al obtener los productos de la DB", error);
+        setCargando(false);
+      }
+    };
+    obtenerProductos();
+  }, []);
+
+  return (
     <main>
-        <Hero></Hero>
-    <section className="productos" id="productos">
-      <h2>Nuestros Productos</h2>
-      <div className="grid-productos">
-        {productos.length > 0 ? (
-          productos.map((item) => (
-            <ProductCard key={item.id} producto={item} />
-          ))
-        ) : (
-          <p style={{color: 'white'}}>Cargando, bancame un toque...</p>
-        )}
-      </div>
-    </section>
-    <Features/>
+      <Hero />
+      
+      <section className="productos" id="productos">
+        <h2 className="text-center text-white my-5">Ofertas Especiales</h2>
+        
+        <div className="grid-productos">
+          {cargando ? (
+         
+            <div className="text-center w-100">
+              <p style={{color: '#0b6bcd', fontSize: '1.5rem', fontWeight: 'bold'}}>
+                Despertando al servidor, bancame un toque.
+              </p>
+            </div>
+          ) : productos.length > 0 ? (
+            productos.map((item) => (
+          
+              <ProductCard key={item._id} producto={item} />
+            ))
+          ) : (
+            <p style={{color: 'white', textAlign: 'center', width: '100%'}}>
+              No hay productos cargados todavía, ¡andá al Admin y metele ritmo!
+            </p>
+          )}
+        </div>
+      </section>
+
+      <Features />
     </main>
   );
 };
-
-
-
-
-
 
 export default Home;

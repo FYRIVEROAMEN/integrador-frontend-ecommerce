@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import "../styles/registro.css"; // Reusamos estilos para ir rápido
+import "../styles/registro.css"; 
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -12,29 +12,42 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            
             const url = "http://localhost:3000/api/auth/login"; 
             const res = await axios.post(url, { email, password });
 
-            // Guardamos la "pulsera" (datos + token) en el localStorage
-            localStorage.setItem("user", JSON.stringify(res.data));
+            // EL ARREGLO MAESTRO:
+            // Guardamos solo el objeto 'user' (name, role, etc)
+            localStorage.setItem("user", JSON.stringify(res.data.user));
+            // Guardamos el token aparte
+            localStorage.setItem("token", res.data.token);
 
-            Swal.fire("¡Bienvenido!", `Hola, ${res.data.name}`, "success");
-            
-            // Redirección inteligente: si es admin, lo mandamos al panel
-            if (res.data.role === 'admin') {
-                navigate("/admin");
-            } else {
-                navigate("/");
-            }
+            Swal.fire({
+                icon: 'success',
+                title: '¡Bienvenido!',
+                text: `Hola, ${res.data.user.name}`,
+                confirmButtonColor: '#0b6bcd'
+            }).then(() => {
+                // Redirección inteligente
+                if (res.data.user.role === 'admin') {
+                    navigate("/admin");
+                } else {
+                    navigate("/");
+                }
+                // Refrescamos la página para que el Navbar se despierte
+                window.location.reload();
+            });
             
         } catch (error) {
-            Swal.fire("Error", "Email o contraseña incorrectos", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.response?.data?.message || "Email o contraseña incorrectos"
+            });
         }
     };
 
     return (
-        <section className="register"> {/* Reusamos clase para el fondo */}
+        <section className="register"> 
             <h1>Iniciar Sesión</h1>
             <form className="register-form" onSubmit={handleLogin}>
                 <div className="field">

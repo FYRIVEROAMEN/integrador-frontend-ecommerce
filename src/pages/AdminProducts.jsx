@@ -8,145 +8,164 @@ const AdminProducts = () => {
     const [editando, setEditando] = useState(false);
     const [idEditar, setIdEditar] = useState(null);
 
-    
+    // ESTADOS PARA CATEGORÍAS
+    const [listaCategorias, setListaCategorias] = useState(["Smartphones", "Accesorios", "Gatos", "Iphones"]);
+    const [nuevaCat, setNuevaCat] = useState("");
+
     const [formData, setFormData] = useState({
-        nombre: "",
-        precio: "",
-        descripcion: "",
-        categoria: "", 
-        imagen: "",
-        fecha: new Date().toLocaleDateString('es-ES')
+        name: "", 
+        price: "", 
+        description: "", 
+        category: "", 
+        imagen: null, 
     });
 
-    const urlApi = "https://6945e411ed253f51719c869d.mockapi.io/productos";
+    const urlApi = "http://localhost:3000/api/products";
+
+
+
+    const getAuthHeaders = () => {
+    // Buscamos la llave directamente en su cajón llore como un nene con esto aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    const token = localStorage.getItem("token"); 
+    return { 
+        headers: { 
+            "authorization": token // Mandamos la llave pura al Back
+        } 
+    };
+};
 
     const obtenerProductos = async () => {
         try {
             const res = await axios.get(urlApi);
             setProductos(res.data);
-        } catch (error) {
-            console.error("Error al obtener los productos", error);
+        } catch (error) { 
+            console.error("Error al obtener productos", error); 
         }
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        const { name, value, files } = e.target;
+        if (name === "imagen") {
+            setFormData({ ...formData, imagen: files[0] });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
+    };
+
+    const agregarCategoria = () => {
+        if (nuevaCat.trim() !== "" && !listaCategorias.includes(nuevaCat)) {
+            setListaCategorias([...listaCategorias, nuevaCat]);
+            setFormData({ ...formData, category: nuevaCat });
+            setNuevaCat("");
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const data = new FormData();
+        data.append("name", formData.name);
+        data.append("price", formData.price);
+        data.append("description", formData.description);
+        data.append("category", formData.category);
+        data.append("stock", 10); 
+        
+        if (formData.imagen) {
+            data.append("image", formData.imagen); 
+        }
+
         try {
             if (editando) {
-                await axios.put(`${urlApi}/${idEditar}`, formData);
-                Swal.fire({
-                    icon: "success",
-                    title: "Producto actualizado",
-                    text: "Los cambios se guardaron correctamente, mi rey.",
-                    background: '#1a1a1a', color: '#fff', confirmButtonColor: '#0b6bcd',
-                });
+                await axios.put(`${urlApi}/${idEditar}`, data, getAuthHeaders());
+                Swal.fire({ icon: "success", title: "¡Producto Actualizado!", background: '#1a1a1a', color: '#fff' });
             } else {
-            
-                await axios.post(urlApi, formData);
-                Swal.fire({
-                    icon: "success",
-                    title: "Producto agregado",
-                    text: "El nuevo equipo y su categoría ya están en la lista.",
-                    background: '#1a1a1a', color: '#fff', confirmButtonColor: '#0b6bcd',
-                });
+                await axios.post(urlApi, data, getAuthHeaders());
+                Swal.fire({ icon: "success", title: "¡Producto Creado!", background: '#1a1a1a', color: '#fff' });
             }
-
-           
             setEditando(false);
             setIdEditar(null);
-            setFormData({
-                nombre: "", precio: "", descripcion: "", categoria: "", imagen: "",
-                fecha: new Date().toLocaleDateString('es-ES')
-            });
+            setFormData({ name: "", price: "", description: "", category: "", imagen: null });
             obtenerProductos();
-
         } catch (error) {
-            console.error("Error en la operación:", error);
-            Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo procesar la solicitud.', background: '#1a1a1a', color: '#fff' });
+            Swal.fire({ icon: 'error', title: 'Error', text: 'Fallo en la conexión con el servidor', background: '#1a1a1a', color: '#fff', error });
         }
     };
 
     const eliminarProducto = async (id) => {
-        const result = await Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás revertir esto!",
-            icon: 'warning',
-            showCancelButton: true,
+        const result = await Swal.fire({ 
+            title: '¿Estás seguro?', 
+            text: "No podrás revertir esto",
+            icon: 'warning', 
+            showCancelButton: true, 
             confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, borrarlo'
+            background: '#1a1a1a', 
+            color: '#fff' 
         });
         if (result.isConfirmed) {
-            await axios.delete(`${urlApi}/${id}`);
-            obtenerProductos();
+            try {
+                await axios.delete(`${urlApi}/${id}`, getAuthHeaders());
+                obtenerProductos();
+            } catch (error) {
+                Swal.fire({ icon: 'error', title: 'Error', text: 'No tenés permiso', error });
+            }
         }
     };
 
-    const prepararEdicion = (producto) => {
+    const prepararEdicion = (p) => {
         setEditando(true);
-        setIdEditar(producto.id);
+        setIdEditar(p._id);
         setFormData({
-            nombre: producto.nombre,
-            precio: producto.precio,
-            descripcion: producto.descripcion,
-            categoria: producto.categoria || "", 
-            imagen: producto.imagen,
-            fecha: producto.fecha
+            name: p.name,
+            price: p.price,
+            description: p.description,
+            category: p.category || "", 
+            imagen: null
         });
     }
 
-    useEffect(() => {
-        obtenerProductos();
-    }, []);
+    useEffect(() => { obtenerProductos(); }, []);
 
     return (
         <main className="admin-page">
-            <h1>Administrador de productos</h1>
+            <h1 style={{textAlign: 'center', color: '#fff', marginBottom: '20px'}}>Panel de Control 👤🚀</h1>
             <div className="admin-layout">
                 <section className="form-container">
-                    <h2>{editando ? "Editar Producto" : "Agregar Producto"}</h2>
+                    <h2 style={{color: '#0b6bcd'}}>{editando ? "Editar Producto" : "Nuevo Producto"}</h2>
                     <form className="admin-form" onSubmit={handleSubmit}>
                         <div className="field">
-                            <label>Nombre producto</label>
-                            <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required />
+                            <label>Nombre</label>
+                            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
                         </div>
-
                         <div className="field">
                             <label>Precio</label>
-                            <input type="number" name="precio" value={formData.precio} onChange={handleChange} required />
+                            <input type="number" name="price" value={formData.price} onChange={handleChange} required />
                         </div>
-
-                     
                         <div className="field">
                             <label>Categoría</label>
-                            <input 
-                                type="text" 
-                                name="categoria" 
-                                placeholder="Ej: Smartphones, Accesorios" 
-                                value={formData.categoria} 
-                                onChange={handleChange} 
-                                required
+                            <select name="category" value={formData.category} onChange={handleChange} required>
+                                <option value="">Seleccioná una...</option>
+                                {listaCategorias.map((cat, i) => <option key={i} value={cat}>{cat}</option>)}
+                            </select>
+                        </div>
+                        
+                        <div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
+                            <input type="text" placeholder="Nueva cat..." value={nuevaCat} onChange={(e) => setNuevaCat(e.target.value)}
+                                style={{flex: 1, padding: '10px', borderRadius: '4px', border: '1px solid #444', background: '#222', color: '#fff'}}
                             />
+                            <button type="button" onClick={agregarCategoria} style={{padding: '0 20px', borderRadius: '4px', border: 'none', background: '#28a745', color: '#fff', fontWeight: 'bold', cursor: 'pointer'}}>+</button>
                         </div>
 
                         <div className="field">
                             <label>Descripción</label>
-                            <textarea name="descripcion" value={formData.descripcion} onChange={handleChange} required></textarea>
+                            <textarea name="description" value={formData.description} onChange={handleChange} required></textarea>
                         </div>
-
                         <div className="field">
-                            <label>URL de Imagen</label>
-                            <input type="text" name="imagen" value={formData.imagen} onChange={handleChange} required />
+                            <label>Imagen {editando && "(Opcional)"}</label>
+                            <input type="file" name="imagen" onChange={handleChange} required={!editando} />
                         </div>
-
-                        <button type="submit" className="btn btn-primary">
-                            {editando ? "Actualizar" : "Cargar"}
+                        <button type="submit" className="btn btn-primary" style={{width: '100%', padding: '15px'}}>
+                            {editando ? "GUARDAR CAMBIOS" : "CARGAR PRODUCTO"}
                         </button>
+                        {editando && <button type="button" onClick={() => {setEditando(false); setFormData({name:"",price:"",description:"",category:"",imagen:null})}} style={{width: '100%', marginTop: '10px', background: 'transparent', color: '#fff', border: '1px solid #fff', cursor: 'pointer', padding: '10px'}}>Cancelar</button>}
                     </form>
                 </section>
 
@@ -156,24 +175,24 @@ const AdminProducts = () => {
                             <thead>
                                 <tr>
                                     <th>Foto</th>
-                                    <th>Descripción</th>
-                                    <th>Producto</th>
-                                    <th>Categoría</th> 
+                                    <th>Nombre</th>
+                                    <th>Categoría</th>
                                     <th>Precio</th>
+                                    <th>Descripción</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {productos.map((prod) => (
-                                    <tr key={prod.id}>
-                                        <td><img src={prod.imagen} alt={prod.nombre} style={{ width: '50px' }} /></td>
-                                        <td className="desc-cell">{prod.descripcion}</td>
-                                        <td>{prod.nombre}</td>
-                                        <td><span className="badge-cat">{prod.categoria}</span></td>
-                                        <td className="precio-destacado">${prod.precio}</td>
+                                {productos.map((p) => (
+                                    <tr key={p._id}>
+                                        <td><img src={`http://localhost:3000${p.image}`} alt={p.name} style={{width: '50px', borderRadius: '4px'}} /></td>
+                                        <td>{p.name}</td>
+                                        <td style={{color: '#0b6bcd', fontWeight: 'bold'}}>{p.category}</td>
+                                        <td>${p.price}</td>
+                                        <td style={{fontSize: '11px', color: '#888'}}>{p.description}</td>
                                         <td className="td-actions">
-                                            <button className="btn-mini btn-edit" onClick={() => prepararEdicion(prod)}>Editar</button>
-                                            <button className="btn-mini btn-danger" onClick={() => eliminarProducto(prod.id)}>Borrar</button>
+                                            <button className="btn-mini btn-edit" onClick={() => prepararEdicion(p)}>Editar</button>
+                                            <button className="btn-mini btn-danger" onClick={() => eliminarProducto(p._id)}>Borrar</button>
                                         </td>
                                     </tr>
                                 ))}

@@ -14,7 +14,7 @@ function App() {
     <Router>
       <Navbar/> 
       <main>
-        <AppRoutes />  {/* acá van a vivir todas las rutas de la app */}
+        <AppRoutes />  
         </main>
         <Footer />
       

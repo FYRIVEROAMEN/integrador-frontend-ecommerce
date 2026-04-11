@@ -3,45 +3,62 @@
   align-items: center;
   justify-content: space-around;
   padding: 2rem 5%;
-  background-color: #000; /* O el color oscuro de tu sitio */
+  background-color: #000;
   color: white;
-  min-height: 450px;
+  min-height: 500px;
   gap: 20px;
+  overflow: hidden;
 }
 
 .hero-texto {
   flex: 1;
   max-width: 500px;
   text-align: left;
+  z-index: 2; /
 }
 
 .hero-texto h1 {
   font-size: 2.8rem;
   margin-bottom: 15px;
   line-height: 1.1;
+  transition: all 0.5s ease;
 }
 
 .hero-media {
   flex: 1;
+  position: relative; 
+  height: 400px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
-.hero-media img {
+
+.slide {
+  position: absolute;
   width: 100%;
   max-width: 550px;
-  height: auto;
+  height: 100%;
   object-fit: contain;
+  opacity: 0;
+  transition: opacity 1s ease-in-out; /
 }
 
-/* Responsive para que en el celu se ponga uno abajo del otro */
+.slide.active {
+  opacity: 1;
+}
+
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;
     text-align: center;
     padding: 3rem 1rem;
+    min-height: 600px;
   }
-
+  .hero-media {
+    width: 100%;
+    height: 300px;
+  }
   .hero-texto {
     margin-bottom: 2rem;
   }

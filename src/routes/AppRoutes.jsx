@@ -7,6 +7,7 @@ import AdminUsers from "../pages/AdminUsers";
 import SobreNosotros from "../pages/SobreNosotros";
 import Products from "../pages/Products";
 import Login from "../pages/Login";
+import CarritoDeCompras from "../pages/CarritoDeCompras";
 
 
 const AdminGuard = ({ children }) => {
@@ -25,6 +26,7 @@ const AppRoutes = () => {
             <Route path="/productos/:id" element={<ProductDetail />} />
             <Route path="/sobrenosotros" element={<SobreNosotros />} />
             <Route path="/Products" element={<Products />} />
+            <Route path="/carrito" element={<CarritoDeCompras />} />
 
             {/* RUTAS PROTEGIDAS  */}
             {/* Solo entran si son admin. Si no, el AdminGuard los rebota. */}

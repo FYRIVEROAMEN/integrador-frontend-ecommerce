@@ -1,69 +1,103 @@
-import { useState } from "react";
+/* eslint-disable */
+import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import { OrderContext } from "./OrderContext";
+import Swal from "sweetalert2";
+
+export const OrderContext = createContext();
 
 export const OrderProvider = ({ children }) => {
-    const [orders, setOrders] = useState([]);
+    const [order, setOrder] = useState(() => {
+        const savedOrder = localStorage.getItem("order");
+        return savedOrder ? JSON.parse(savedOrder) : [];
+    });
 
-    // Sumatoria total del precio
-    const total = orders.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    const [total, setTotal] = useState(0);
+    const [countItems, setCountItems] = useState(0);
 
-    //Cantidad total de ítems en la orden 
-    const countItems = orders.reduce((acc, item) => acc + item.quantity, 0);
+    useEffect(() => {
+        let tempTotal = 0;
+        let tempCount = 0;
+        order.forEach(item => {
+            tempTotal += item.quantity * item.price;
+            tempCount += item.quantity;
+        });
+        setTotal(tempTotal);
+        setCountItems(tempCount);
+        localStorage.setItem("order", JSON.stringify(order));
+    }, [order]);
 
-    // Agregar producto con control de quantity 
-    const addItemToOrder = (product) => {
-        const itemExist = orders.find((item) => item._id === product._id);
-        if (itemExist) {
-            setOrders(orders.map((item) => 
-                item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
+    // Actualizado: Ahora acepta un segundo parámetro "quantityToAdd"
+    const addItemToCart = (product, quantityToAdd = 1) => {
+        const itemExists = order.find(item => item._id === product._id);
+        const qty = Number(quantityToAdd);
+
+        if (itemExists) {
+            // Si el producto ya existía, incrementamos la cantidad elegida [cite: 17]
+            setOrder(order.map(item => 
+                item._id === product._id ? { ...item, quantity: item.quantity + qty } : item
             ));
         } else {
-            setOrders([...orders, { ...product, quantity: 1 }]);
+            // Si el producto no existe, se agrega con la cantidad elegida [cite: 16, 17]
+            setOrder([...order, { ...product, quantity: qty }]);
         }
     };
 
-    //Función para vaciar el carrito 
     const clearCart = () => {
-        setOrders([]);
+        setOrder([]);
+        localStorage.removeItem("order");
     };
 
-    const createOrder = async (userId) => {
-        try {
-            const newOrder = {
-                totalPrice: total,
-                user: userId,
-                products: orders.map(i => ({ 
-                    product: i._id, 
-                    quantity: i.quantity, 
-                    price: i.price 
-                }))
-            };
-            
-            // Eorden al back
-            await axios.post("http://localhost:3000/api/orders", newOrder);
-            
-            // REQUERIMIENTO: Inmediatamente después, GET y consola 
-            const res = await axios.get("http://localhost:3000/api/orders");
-            console.log("--- HISTORIAL DE ÓRDENES (Requerimiento 48) ---");
-            console.log(res.data);
-            
-            clearCart(); 
-            
-        } catch (error) {
-            console.error("Error al crear la orden:", error);
-        }
+    const createOrder = async () => {
+    // 1. Buscamos las cosas en sus cajones correctos
+    const token = localStorage.getItem("token");
+    const userData = JSON.parse(localStorage.getItem("user"));
+
+    // 2. Si no hay token o no hay usuario, mandamos al login
+    if (!token || !userData) {
+        Swal.fire("Error de sesión", "Iniciá sesión de nuevo, mi rey.", "error");
+        return false;
+    }
+
+    // 3. Armamos la orden (usamos userData.id que ya lo tenemos guardado)
+    const orderData = {
+        totalPrice: total,
+        user: userData.id || userData._id, // Usamos el ID directamente
+        products: order.map(item => ({ 
+            product: item._id, 
+            quantity: item.quantity,
+            price: item.price
+        })),
+        status: 'pending'
     };
+
+    try {
+        const urlApi = "http://localhost:3000/api/orders"; // Chequeá que el path sea /api/orders
+        
+        // 4. Mandamos el TOKEN real que sacamos del localStorage
+        const config = { 
+            headers: { 
+                "authorization": token 
+            } 
+        };
+
+        // Creamos la orden
+        await axios.post(urlApi, orderData, config);
+        
+        // Opcional: Pedir las órdenes después (Requerimiento EIT)
+        const response = await axios.get(urlApi, config);
+        console.log("REQUERIMIENTO EIT - TODAS LAS ÓRDENES:", response.data);
+        
+        clearCart();
+        return true;
+
+    } catch (error) {
+        console.error("Error del Backend:", error.response?.data || error.message);
+        return false;
+    }
+};
 
     return (
-        <OrderContext.Provider value={{ 
-            orders, 
-            total, 
-            countItems, 
-            addItemToOrder, 
-            createOrder, 
-            clearCart 
-        }}>
+        <OrderContext.Provider value={{ order, total, countItems, addItemToCart, clearCart, createOrder }}>
             {children}
         </OrderContext.Provider>
     );
