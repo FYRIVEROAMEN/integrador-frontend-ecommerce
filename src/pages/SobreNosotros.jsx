@@ -16,7 +16,7 @@ const SobreNosotros = () => {
         <figure className="about-hero">
           <div className="hero-media">
             <video
-              src="src/image/¡BUEN COMIENZO DE SEMANA! ¿Te imaginas arrancarla así ¡Con el celular que más querías! En celula.mp4" 
+              src="/¡BUEN COMIENZO DE SEMANA! ¿Te imaginas arrancarla así ¡Con el celular que más querías! En celula.mp4" 
               width="400"
               height="480"
               allowFullScreen
@@ -32,7 +32,7 @@ const SobreNosotros = () => {
         <div className="team">
           <div className="member">
             <div className="member-media">
-              <img src="public/facuimagen.jpg" alt="Yamil Amen" />
+              <img src="/facuimagen.jpg" alt="Yamil Amen" />
             </div>
             <div className="member-info">
               <h3 className="member-name">Yamil Amen</h3>

@@ -9,7 +9,7 @@ function Footer() {
                 <div className="box">
                     <div className="img">
                         <a href="#">
-                            <img src="src/image/ChatGPT Image 25 sept 2025, 04_07_34 p.m..png" alt="logo de empresa" />
+                            <img src="/ChatGPT Image 25 sept 2025, 04_07_34 p.m..png" alt="logo de empresa" />
                         </a>
                     </div>
                 </div>

@@ -37,7 +37,7 @@ const Navbar = () => {
 
   return (
     <header className="header-nav">
-      <img className="logo" src="src/image/ChatGPT Image 25 sept 2025, 04_07_34 p.m..png" alt="logotipo" />
+      <img className="logo" src="/ChatGPT Image 25 sept 2025, 04_07_34 p.m..png" alt="logotipo" />
 
       <button className="abrir-menu" onClick={toggleMenu}>
         <List size={30} color="white" />
