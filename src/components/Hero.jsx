@@ -4,15 +4,15 @@ import "../styles/hero.css";
 const Hero = () => {
   const slides = [
     {
-      img: "https://www.itsitio.com/wp-content/uploads/2025/09/iphone-17-pro-principal.webp",
+      img: "https://www.apple.com/la/iphone-17-pro/images/overview/highlights/highlights_design_endframe__eu8gj0kqlmoi_large.jpg",
       title: "Lo último en iPhone",
     },
     {
-      img: "https://thumbs.dreamstime.com/b/apple-airpods-pro-con-fondo-negro-kuala-lumpur-malasia-diciembre-de-aislado-contra-el-nuevo-profesional-cuenta-cancelaci%C3%B3n-activa-168198337.jpg",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROvouPI5SxLVtjPbNtQMLXEZtMI_0NO5DnZg&s",
       title: "Accesorios Premium",
     },
     {
-      img: "https://images.samsung.com/ar/smartphones/galaxy-s26-ultra/images/galaxy-s26-ultra-features-colors-durability-a-mo.jpg?imbypass=true",
+      img: "https://images.samsung.com/es/smartphones/galaxy-s26-ultra/images/galaxy-s26-ultra-features-colors-ambient-island-mo.jpg?imbypass=true",
       title: "Tecnología en tus manos",
     }
   ];
