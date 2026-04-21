@@ -1,65 +1,101 @@
+
 .hero {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 2rem 5%;
-  background-color: #000;
+  padding: 0 5%;
+  min-height: 90vh; 
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000 90%);
   color: white;
-  min-height: 500px;
-  gap: 20px;
+  width: 100%;
+  margin-top: 0; 
   overflow: hidden;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, #000);
 }
 
 .hero-texto {
   flex: 1;
-  max-width: 500px;
-  text-align: left;
-  z-index: 2; /
+  max-width: 550px;
+  z-index: 10;
 }
 
 .hero-texto h1 {
-  font-size: 2.8rem;
-  margin-bottom: 15px;
+  font-size: 3.5rem;
+  margin-bottom: 20px;
   line-height: 1.1;
-  transition: all 0.5s ease;
+  font-weight: 800;
+  letter-spacing: -1px;
 }
 
 .hero-media {
   flex: 1;
   position: relative; 
-  height: 400px;
+  height: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
 .slide {
   position: absolute;
   width: 100%;
-  max-width: 550px;
+  max-width: 600px;
   height: 100%;
   object-fit: contain;
   opacity: 0;
-  transition: opacity 1s ease-in-out; /
+  transition: opacity 0.8s ease-in-out;
+  
+  
+  mix-blend-mode: screen; 
 }
 
 .slide.active {
   opacity: 1;
 }
 
+/* --- Versión Mobile --- */
 @media (max-width: 768px) {
   .hero {
-    flex-direction: column;
-    text-align: center;
-    padding: 3rem 1rem;
-    min-height: 600px;
+    min-height: 80vh; /* En el celu un poquito menos para que se vea que hay más abajo */
+    padding: 2rem 1rem;
+    justify-content: center;
   }
+
+  .hero-texto {
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-texto h1 {
+    font-size: 2.2rem;
+  }
+
   .hero-media {
     width: 100%;
-    height: 300px;
+    height: 320px;
+    margin-top: 10px;
   }
-  .hero-texto {
-    margin-bottom: 2rem;
+
+  .slide {
+    position: relative; 
+    display: none; 
+    width: 95%; /* Aumentamos el tamaño del producto en móvil */
+    height: 100%;
+    transform: scale(1.05); /* Un pequeño aumento para dar impacto */
+  }
+
+  .slide.active {
+    display: block;
+    margin: 0 auto;
   }
 }
