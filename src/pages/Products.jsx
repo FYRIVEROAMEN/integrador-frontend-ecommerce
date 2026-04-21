@@ -31,7 +31,7 @@ const Products = () => {
 
     return (
         <main className="container-productos">
-            <h2 className="text-center text-white my-4">Nuestro Catálogo 👤🚀</h2>
+            <h2 className="text-center text-white my-4">Nuestro Catálogo </h2>
 
             <div className="filter-container">
                 {categorias.map(cat => (
