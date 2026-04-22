@@ -185,7 +185,7 @@ const AdminProducts = () => {
                             <tbody>
                                 {productos.map((p) => (
                                     <tr key={p._id}>
-                                        <td><img src={`http://localhost:3000${p.image}`} alt={p.name} style={{width: '50px', borderRadius: '4px'}} /></td>
+                                        <td><img src={`${import.meta.env.VITE_API_URL}${p.image}`} alt={p.name} style={{width: '50px', borderRadius: '4px'}} /></td>
                                         <td>{p.name}</td>
                                         <td style={{color: '#0b6bcd', fontWeight: 'bold'}}>{p.category}</td>
                                         <td>${p.price}</td>
