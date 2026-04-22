@@ -12,11 +12,11 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const url = "http://localhost:3000/api/auth/login"; 
+            const url = `${import.meta.env.VITE_API_URL}/api/auth/login`; 
             const res = await axios.post(url, { email, password });
 
-            // EL ARREGLO MAESTRO:
-            // Guardamos solo el objeto 'user' (name, role, etc)
+            
+            
             localStorage.setItem("user", JSON.stringify(res.data.user));
             // Guardamos el token aparte
             localStorage.setItem("token", res.data.token);
@@ -27,13 +27,13 @@ const Login = () => {
                 text: `Hola, ${res.data.user.name}`,
                 confirmButtonColor: '#0b6bcd'
             }).then(() => {
-                // Redirección inteligente
+                
                 if (res.data.user.role === 'admin') {
                     navigate("/admin");
                 } else {
                     navigate("/");
                 }
-                // Refrescamos la página para que el Navbar se despierte
+                
                 window.location.reload();
             });
             

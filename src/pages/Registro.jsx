@@ -50,7 +50,7 @@ const Registro = () => {
             data.append("province", formData.province);
             data.append("image", image);
 
-            const url = "http://localhost:3000/api/auth/register"; 
+            const url = `${import.meta.env.VITE_API_URL}/api/auth/register`;
             
             await axios.post(url, data, {
                 headers: { "Content-Type": "multipart/form-data" }

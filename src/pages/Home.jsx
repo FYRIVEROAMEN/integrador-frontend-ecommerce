@@ -13,7 +13,7 @@ const Home = () => {
     const obtenerProductos = async () => {
       try {
       
-        const url = "http://localhost:3000/api/products"; 
+        const url = `${import.meta.env.VITE_API_URL}/api/products`; 
         const respuesta = await axios.get(url);
         
         

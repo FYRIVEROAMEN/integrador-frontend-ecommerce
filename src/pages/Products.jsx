@@ -12,7 +12,7 @@ const Products = () => {
         const obtenerProductos = async () => {
             try {
                 
-                const url = "http://localhost:3000/api/products";
+                const url = `${import.meta.env.VITE_API_URL}/api/products`;
                 const respuesta = await axios.get(url);
                 setProductos(respuesta.data);
             } catch (error) {
@@ -21,6 +21,7 @@ const Products = () => {
         };
         obtenerProductos()
     }, []);
+
 
     
     const categorias = ["Todas", ...new Set(productos.map(p => p.category))];

@@ -71,7 +71,7 @@ export const OrderProvider = ({ children }) => {
     };
 
     try {
-        const urlApi = "http://localhost:3000/api/orders"; // Chequeá que el path sea /api/orders
+        const urlApi = `${import.meta.env.VITE_API_URL}/api/orders`; // Chequeá que el path sea /api/orders
         
         // 4. Mandamos el TOKEN real que sacamos del localStorage
         const config = { 

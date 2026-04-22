@@ -22,7 +22,7 @@ const ProductCard = ({ producto }) => {
     return (
         <article className="card">
             <img 
-                src={`http://localhost:3000${producto.image}`} 
+                src={`${import.meta.env.VITE_API_URL}${producto.image}`} 
                 alt={producto.name} 
             />
             

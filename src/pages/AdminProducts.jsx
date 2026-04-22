@@ -20,7 +20,7 @@ const AdminProducts = () => {
         imagen: null, 
     });
 
-    const urlApi = "http://localhost:3000/api/products";
+    const urlApi = `${import.meta.env.VITE_API_URL}/api/products`;
 
 
 

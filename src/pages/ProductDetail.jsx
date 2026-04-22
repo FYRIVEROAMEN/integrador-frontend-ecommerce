@@ -17,7 +17,7 @@ const ProductDetail = () => {
     useEffect(() => {
         const obtenerProducto = async () => {
             try {
-                const url = `http://localhost:3000/api/products/${id}`; 
+                const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`;
                 const respuesta = await axios.get(url);
                 setProducto(respuesta.data); 
             } catch (error) {
@@ -52,7 +52,7 @@ const ProductDetail = () => {
         <main className="product-page">
             <section className="product-detail">
                 <div className="pd-gallery">
-                    <img src={`http://localhost:3000${producto.image}`} alt={producto.name} />
+                    <img src={`${import.meta.env.VITE_API_URL}${producto.image}`} alt={producto.name} />
                 </div>
                 <div className="pd-info">
                     <h1>{producto.name}</h1>

@@ -60,7 +60,8 @@ const AdminUsers = () => {
                 title: "No se pudo editar", 
                 background: '#1a1a1a', 
                 color: '#fff'
-            });
+            
+            },error);
         }
     };
 
