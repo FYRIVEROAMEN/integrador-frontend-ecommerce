@@ -13,8 +13,8 @@ const AdminUsers = () => {
         role: "client" 
     });
 
-    const urlApi = "http://localhost:3000/api/users";
-    const baseUrl = "http://localhost:3000";
+    const urlApi = `${import.meta.env.VITE_API_URL}/api/users`;
+    const baseUrl = `${import.meta.env.VITE_API_URL}`;
 
     const getAuthHeaders = () => {
         const token = localStorage.getItem("token"); 
@@ -97,7 +97,7 @@ const AdminUsers = () => {
 
     return (
         <main className="admin-page">
-            <h1 style={{textAlign: 'center', color: '#fff', margin: '20px 0'}}>Administrador de Usuarios 👤🚀</h1>
+            <h1 style={{textAlign: 'center', color: '#fff', margin: '20px 0'}}>Administrador de Usuarios </h1>
             
             {editando && (
                 <section className="form-container" style={{marginBottom: '30px', border: '1px solid #0b6bcd'}}>
